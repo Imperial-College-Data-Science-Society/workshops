@@ -11,3 +11,8 @@ Then
 pip install -r requirements.txt
 ```
 to get all the dependencies.
+
+To setup a notebook environment:
+```
+ipython kernel install --user --name=ENV_NAME
+```
