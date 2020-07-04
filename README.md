@@ -1,6 +1,6 @@
 # ICDSS Workshops
 
-To start, [![Binder](https://notebooks.gesis.org/binder/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/Imperial-College-Data-Science-Society/workshops/master).
+To start, [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Imperial-College-Data-Science-Society/workshops/master).
 
 ## Development
 
