@@ -13304,7 +13304,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div><div class="fragment">
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13313,7 +13313,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></div></section></section><section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13365,7 +13365,7 @@ a.anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Prediction">Prediction<a class="anchor-link" href="#Prediction">&#182;</a></h2><p>We want to pick $f$ such that it minimises the <strong>expected or population risk</strong> when a new independent datapoint $(X, Y)$ comes in</p>
 $$
-f_* := \text{argmin}_{f\in\mathcal{C}} \mathbb{E}_{\mathbb{P}}\left[ \ell(f, X, Y) \right]
+f_* := \text{argmin}_{f\in\mathcal{C}} \mathbb{E}_{\mathbb{P}}\left[ \ell(f, X, Y) \right] := \text{argmin}_{f\in\mathcal{C}} r(f) 
 $$<p>We denote $f_*$ is the <strong>optimum</strong>, which is unknown. We want to construct an approximation to $f_*$ based on the $n$ training points and the hypothesis $\mathcal{H}$ that controls the complexity of $f$. This approximation is close to</p>
 $$
 f_{**}:= \text{argmin}_{f\in\mathcal{H}} \mathbb{E}_{\mathbb{P}}\left[ \ell(f, X, Y) \right]
@@ -13385,7 +13385,7 @@ $$
 R(f):= \frac{1}{n}\sum_{i=1}^n \ell(f, X_i, Y_i) ,\quad f_*^R := \text{argmin}_{f\in\mathcal{H}} R(f)
 $$<p>to minimise</p>
 $$
-r(f) - r(f_{**}) (*).
+r(f) - r(f_{**}).
 $$
 </div>
 </div>
@@ -13427,12 +13427,9 @@ $$
 <li>$\ell(f, X, Y) = |f(X) - y|$ - the <strong>\ell_1 loss</strong></li>
 <li>This yields the <strong>mean squared error (MSE)</strong> $R(f) = \frac{1}{n}\sum_{i=1}^n (f(X_i) - y_i)^2$</li>
 </ul>
-<p>In theory, these give</p>
-<ul>
-<li>$\ell_2$ loss: $f_{**}(x) = E[Y|X=x]$</li>
-<li>$\ell_1$ loss: $f_{**}(x) = \text{Median}[Y|X=x]$</li>
-</ul>
-<p>Depending on the situation, we can either use approximate gradient-based methods (e.g. gradient descent), Monte Carlo methods or the analytical maximum likelihood estimation (MLE).</p>
+<p>In theory, these give
+$$\ell_2:  f_{**}(x) = E[Y|X=x]$$</p>
+$$\ell_1: f_{**}(x) = \text{Median}[Y|X=x]$$<p>Depending on the situation, we can either use approximate gradient-based methods (e.g. gradient descent), Monte Carlo methods or the analytical maximum likelihood estimation (MLE).</p>
 
 </div>
 </div>
@@ -13445,10 +13442,17 @@ y = X\beta_0 + \sigma\mathcal{N}(0,1)
 $$<p>$\beta_0 = (1,\beta_{0,1},\ldots,\beta_{0,d-1})^T$ - the 1 represents the intercept.</p>
 <p>We also call this <strong>ordinary least squares</strong>:</p>
 <ul>
-<li>Assume that $X$ is full rank</li>
-<li>$\hat{\beta} = \text{argmin}_{\beta} ||y- X\beta ||_2^2 \iff X^T(y - X\beta) = 0 \iff \hat{\beta} = X(X^TX)^{-1}X^T y \sim \mathcal{N}(X\beta_0, \sigma^2 X(X^TX)^{-1}X^T)$.</li>
-<li>Geometrically: $y - X\hat{\beta} \perp X\beta_0 \iff \hat{\beta}$ minimises $||y-X\beta ||_2^2$</li>
+<li>Assume that $X$ is full rank
+$$\hat{\beta} = \text{argmin}_{\beta} ||y- X\beta ||_2^2 \iff X^T(y - X\beta) = 0 \iff \hat{\beta} = X(X^TX)^{-1}X^T y \sim \mathcal{N}(X\beta_0, \sigma^2 X(X^TX)^{-1}X^T)$$</li>
 </ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Geometrically: $y - X\hat{\beta} \perp X\beta_0 \iff \hat{\beta}$ minimises $||y-X\beta ||_2^2$</p>
 <p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">https://en.wikipedia.org/wiki/Ordinary_least_squares</a>:
 <img src="ols.png" alt=""></p>
 
@@ -13545,17 +13549,14 @@ Notes:
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 <span class="n">pred_int_train</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pred_int_train</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pred_int_train</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pred_int_train</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pred_int_train</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># the prediction intervals. Note that htey can be larger</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test</span><span class="p">)))</span>
 <span class="n">pred_int_test</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test</span><span class="p">))</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">pred_int_test</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">pred_int_test</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">pred_int_test</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">pred_int_test</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13610,7 +13611,7 @@ Notes:
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13619,7 +13620,7 @@ Notes:
 
 </div>
 </div>
-</div><div class="fragment">
+</div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
@@ -13681,7 +13682,7 @@ Notes:
 </div>
 </div>
 
-</div></div></section></section><section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13760,7 +13761,7 @@ where $\hat{f}_t$ are trained regression trees from randomly sampled (with repla
 
 </div>
 </div>
-</div><div class="fragment">
+</div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
@@ -13822,7 +13823,7 @@ where $\hat{f}_t$ are trained regression trees from randomly sampled (with repla
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13841,7 +13842,7 @@ $$<p>We now work with a diabetes dataset:</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
@@ -13921,7 +13922,7 @@ $$<p>We now work with a diabetes dataset:</p>
 </div>
 </div>
 
-</div></div></section></section>
+</div></section></section>
 </div>
 </div>
 

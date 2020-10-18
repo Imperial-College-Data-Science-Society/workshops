@@ -131,3 +131,4 @@ dmypy.json
 .DS_Store
 
 .ipynb_checkpoints
+notebooks/data
