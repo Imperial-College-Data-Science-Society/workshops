@@ -13202,17 +13202,19 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Regularization-and-Shrinkage:-Why-do-They-Matter?">Regularization and Shrinkage: Why do They Matter?<a class="anchor-link" href="#Regularization-and-Shrinkage:-Why-do-They-Matter?">&#182;</a></h1><p>💻 Content covered:</p>
+<h1 id="Regularization-and-Shrinkage:-Why-do-They-Matter?">Regularization and Shrinkage: Why do They Matter?<a class="anchor-link" href="#Regularization-and-Shrinkage:-Why-do-They-Matter?">&#182;</a></h1><p>🔗 Materials: <a href="https://github.com/Imperial-College-Data-Science-Society/workshops/tree/master/notebooks/workshop-7">https://github.com/Imperial-College-Data-Science-Society/workshops/tree/master/notebooks/workshop-7</a></p>
+<p>💻 Content covered:</p>
 <ul>
 <li>Motivation</li>
-<li>From linear regression to Ridge and Lasso</li>
-<li>Connections with Singular Value Decomposition and Principle Component Analysis</li>
+<li>From linear regression to Ridge</li>
+<li>Connections with Principle Component Analysis</li>
+<li>Lasso</li>
 <li>Example</li>
 </ul>
 <p>👾 This lecture will be held online on Microsoft Teams.</p>
 <p>🔴 The event will be recorded and will be publicly available.</p>
-<p>🎉 Attendance is FREE for members! Whether you are a student at Imperial College or not, sign up to be a member at www.icdss.club/joinus</p>
-<p>⭐️ We encourage participants of this workshop to have looked at our previous sessions on YouTube. Prerequisites: basic understanding of Bayesian statistics</p>
+<p>🎉 Attendance is FREE for members! Whether you are a student at Imperial College or not, sign up to be a member at <a href="https://www.icdss.club/joinus">https://www.icdss.club/joinus</a></p>
+<p>⭐️ We encourage participants of this workshop to have looked at our previous sessions on YouTube.</p>
 <p>📖 A schedule of our lecture series is currently available</p>
 
 </div>
@@ -13225,21 +13227,42 @@ a.anchor-link {
 $$y_i = f(x_i) + \epsilon_i,
 $$
 where $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$ is a Gaussian noise.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>For convenience, we write everything in matrix form: for $\epsilon \sim \mathcal{N}(0, \sigma^2 I_n)$,
 $$
 Y = f(X) + \epsilon,
 $$
 where $Y = (y1, \ldots, y_n)^\intercal$, and $X \in \mathbb{R}^{n \times d}$ whose $i$-th row is $x_i$.</p>
-<p>E.g. When $f(X) = \alpha_0 \mathbf{1} + X \beta_0$, $Y = X \beta_0 + \epsilon$, and $(\alpha_0, \beta_0) \in \mathbb{R}^{d + 1}$ are the true parameters.</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>E.g. $f(X) = \alpha_0 \mathbf{1} + X \beta_0$, $Y = X \beta_0 + \epsilon$。 In this case, $(\alpha_0, \beta_0) \in \mathbb{R}^{d + 1}$ are the true parameters.</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Want to learn $f$.</p>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h3>
+<h2 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h2>
 </div>
 </div>
 </div><div class="fragment">
@@ -13251,10 +13274,24 @@ where $Y = (y1, \ldots, y_n)^\intercal$, and $X \in \mathbb{R}^{n \times d}$ who
 $$
 (\hat{\alpha}, \hat{\beta}) = \mathrm{argmin}_{(\alpha, \beta) \in \mathbb{R}^{d + 1}} \| Y - \alpha \mathbf{1} - X\beta  \|_2^2. 
 $$</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let $\tilde{X} = [\mathbf{1} \ X]$ be the design matrix with an intercept. Simple linear algebra gives the LS solution:
 $$
 (\hat{\alpha}, \hat{\beta}^\intercal)^\intercal = (\tilde{X}^T \tilde{X})^{-1} \tilde{X}^\intercal Y.
 $$</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Caveat: For the LS solution to be well-defined, the $d \times d$ matrix $\tilde{X}^T \tilde{X}$ needs to be invertible, or equivalently, $\tilde{X}$ need to have full-rank ($n \geq d$).</p>
 
 </div>
@@ -13264,19 +13301,33 @@ $$</p>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Problem: What about when $d &gt; &gt; n$?</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>E.g. 1. In cancer prediction problems, it is common to have thousands of gene expressions as your covariates, but only a few hundreds of patients' record.</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>E.g. 2. In a customer behaviour analysis where you are given whether a customer has purchased a product from Amazon as the response, and some features (type of product, price, time of visit etc.) as covariates. You don't really want to <em>predict</em> buy/not buy, but to understand which features, amongst a handful of them, are most correlated to the purchase behaviour.</p>
 
 </div>
 </div>
-</div></section><section>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><p>LS is good, but does not give us an answer when:</p>
+<h4 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h4><p>LS is good, but does not give us an answer when:</p>
 <ol>
 <li>The problem is high-dimensional and we have more features than cases.</li>
-<li>We are interested in selecting features that are most "important".</li>
+<li>We are interested in selecting the features that are most "important".</li>
 </ol>
 
 </div>
@@ -13306,7 +13357,7 @@ where $\| \beta \|_2^2 = \sum_{j = 1}^d \beta_j^2$ is called the <span style="co
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Why adding in a regularization helps?</p>
-<p>Under some conditions ($Y$ is centred, columns of $X$ are standardized), the Ridge solution can be derived analytically:
+<p>Under some conditions (columns of $X$ are standardized to have zero mean and unit variance), the Ridge solution can be derived analytically:
 \begin{align*}
 \hat{\alpha} &amp;= \frac{1}{n} \sum_{i = 1}^{n} Y_i = 0, \\
 \hat{\beta} &amp;= (X^\intercal X + \lambda I_n)^{-1} X^{\intercal}Y,
@@ -13323,7 +13374,7 @@ where $\| \beta \|_2^2 = \sum_{j = 1}^d \beta_j^2$ is called the <span style="co
 <li>$(X^\intercal X + \lambda I_n)$ is always invertible for <strong>any</strong> $X$, as long as $\lambda &gt; 0$. So the Ridge solution is always well-defined.</li>
 <li>Adding the <span style="color:red">penalty term</span> <strong>shrinks</strong> the fitted coefficients in $\hat{\beta}$ towards zero (more on this later).</li>
 <li>$\hat{\beta}$ is now biased, but always has a smaller variance for a judicious choice of $\lambda$ (bias-variance trade-off):<center>
-Mean-Square Error = Variance + Bias^2.
+Mean-Square Error = Variance + $\textrm{Bias}^2$.
 </center></li>
 <li>We normally do <strong>not</strong> penalize the intercept term!</li>
 </ul>
@@ -13344,8 +13395,8 @@ Mean-Square Error = Variance + Bias^2.
 <p>The optimal $\lambda$ is often chosen by cross-validation:</p>
 <ol>
 <li>Split training data into various subsets, called <strong>folds</strong>.</li>
-<li>For each $\lambda$ over a pre-defined grid of values $\lambda_1, \ldots, \lambda_k$, calculate Ridge solution from all but one folds, compute out-of-sample error on the rest fold, and repeat to get an averaged loss.</li>
-<li>Pick the $\lambda$ that gave the smallest averaged cross-validation loss over all folds.</li>
+<li>For each $\lambda$ over a pre-defined grid of values $\lambda_1, \ldots, \lambda_k$, calculate Ridge solution from all but one folds, compute out-of-sample error on the other fold, and repeat to get an averaged loss.</li>
+<li>Pick the $\lambda$ that gave the smallest averaged cross-validation loss.</li>
 </ol>
 <p><img src="figs/cross_val.png" width="600"/></p>
 
@@ -13363,21 +13414,23 @@ Mean-Square Error = Variance + Bias^2.
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Idea of Principal Value Analaysis (PCA):</p>
-<p>Find the directions along which the <strong>features</strong> $X$ with the largest variance (i.e. most informative), and only look at the first few of them.</p>
-<p>The variance is quantified by the <strong>eigenvalues</strong> of the matrix $X^\intercal X$, and the directions are given by their <strong>eigenvectors</strong>, called principal components (PCs).</p>
-
-</div>
-</div>
-</div></div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Principal component regression</strong>: Use the top, say $s$, eigenvectors as the covariates, and perform least-square fit to find $\hat{\beta}$.</p>
-<p><img src="figs/PCA.png" width="300"/></p>
+<p>Find the directions along which the <strong>features</strong> $X$ have the largest variance (i.e. most informative), and only look at the first few of them.</p>
+<ul>
+<li>The variance is quantified by the <strong>eigenvalues</strong> of the matrix $X^\intercal X$. </li>
+<li>The directions are given by the <strong>eigenvectors</strong>, called principal components (PCs).</li>
+</ul>
 
 </div>
 </div>
 </div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Principal component regression</strong>: Use the first, say $s$, eigenvectors as the covariates, and perform least-square fit to find $\hat{\beta}$.</p>
+<div style="text-align:center"><img src="figs/PCA.png" width=500"/></div>
+</div>
+</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13391,11 +13444,18 @@ Mean-Square Error = Variance + Bias^2.
 
 </div>
 </div>
-</div><div class="fragment">
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Adding the <span style="color:red">penalty term</span> in Ridge regression effectively shrinks the Ridge solution $\hat{\beta}$ according to the <strong>eigenvalues</strong> of the matrix $X^\intercal X$.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Let $\hat{\beta}^{(LS)}$ = LS solution, $\hat{\beta}_s^{(PC)}$ = PC regression with $s$ PCs, $\hat{\beta}_\lambda^{(R)}$ = Ridge solution with regularization parameter $\lambda &gt; 0$. </li>
 <li>Let $D_1 \geq D_2 \geq \ldots \geq D_d$ be the eigenvalues of $X^\intercal X$ with corresponding eigenvectors $u_1, \ldots, u_d$. </li>
@@ -13416,7 +13476,7 @@ X \hat{\beta}_\lambda^{(R)} &amp;= \sum_{j = 1}^d \color{blue}{\frac{D_j^2}{D_j^
 
 </div>
 </div>
-</div></div><div class="fragment">
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13428,7 +13488,7 @@ X \hat{\beta}_\lambda^{(R)} &amp;= \sum_{j = 1}^d \color{blue}{\frac{D_j^2}{D_j^
 
 </div>
 </div>
-</div></div></section></section><section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13469,6 +13529,15 @@ $$</li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Experiments-(Prostate-Cancer)">Experiments (Prostate Cancer)<a class="anchor-link" href="#Experiments-(Prostate-Cancer)">&#182;</a></h2><p>See the notebook here:</p>
+<p><a href="https://github.com/Imperial-College-Data-Science-Society/workshops/tree/master/notebooks/workshop-7">https://github.com/Imperial-College-Data-Science-Society/workshops/tree/master/notebooks/workshop-7</a></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Other-Forms-of-Regularization">Other Forms of Regularization<a class="anchor-link" href="#Other-Forms-of-Regularization">&#182;</a></h2>
 </div>
 </div>
@@ -13485,7 +13554,16 @@ $$</li>
 
 </div>
 </div>
-</div></div></section></section>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p>Hastie, Trevor, Tibshirani, Robert and Friedman, Jerome. <em>The Elements of Statistical Learning</em>. New York, NY, USA: Springer New York Inc., 2001.</p>
+<p>Rajen Shah. Lecture Notes on Modern Statistical Methods. 2019. <a href="http://www.statslab.cam.ac.uk/~rds37/teaching/modern_stat_methods/notes_MSM.pdf">http://www.statslab.cam.ac.uk/~rds37/teaching/modern_stat_methods/notes_MSM.pdf</a></p>
+
+</div>
+</div>
+</div></section></section>
 </div>
 </div>
 
